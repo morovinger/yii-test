@@ -10,6 +10,7 @@ use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
 use app\models\SignupForm;
+use app\models\Note;
 
 class SiteController extends Controller
 {
@@ -67,7 +68,17 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        return $this->render('index');
+        $notes = [];
+        if (!Yii::$app->user->isGuest) {
+            $notes = Note::find()
+                ->where(['user_id' => Yii::$app->user->id])
+                ->orderBy(['created_at' => SORT_DESC])
+                ->all();
+        }
+
+        return $this->render('index', [
+            'notes' => $notes,
+        ]);
     }
 
     /**

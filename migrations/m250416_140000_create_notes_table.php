@@ -27,16 +27,6 @@ class m250416_140000_create_notes_table extends Migration
             '{{%notes}}',
             'user_id'
         );
-
-        // add foreign key for table `{{%users}}`
-        $this->addForeignKey(
-            '{{%fk-notes-user_id}}',
-            '{{%notes}}',
-            'user_id',
-            '{{%users}}',
-            'id',
-            'CASCADE'
-        );
     }
 
     /**
@@ -44,12 +34,6 @@ class m250416_140000_create_notes_table extends Migration
      */
     public function safeDown()
     {
-        // drops foreign key for table `{{%users}}`
-        $this->dropForeignKey(
-            '{{%fk-notes-user_id}}',
-            '{{%notes}}'
-        );
-
         // drops index for column `user_id`
         $this->dropIndex(
             '{{%idx-notes-user_id}}',
