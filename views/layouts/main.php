@@ -47,6 +47,7 @@ $this->registerLinkTag(['rel' => 'icon', 'type' => 'image/x-icon', 'href' => Yii
         $menuItems[] = ['label' => 'Signup', 'url' => ['/site/signup']];
         $menuItems[] = ['label' => 'Login', 'url' => ['/site/login']];
     } else {
+        $menuItems[] = ['label' => 'My Notes', 'url' => ['/note/index']];
         $menuItems[] = '<li class="nav-item">'
             . Html::beginForm(['/site/logout'])
             . Html::submitButton(
