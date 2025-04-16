@@ -1,0 +1,20 @@
+Options -Indexes
+<IfModule mod_rewrite.c>
+    RewriteEngine on
+    RewriteRule ^(.*)$ web/$1 [L]
+</IfModule>
+
+# Deny accessing below extensions
+<Files ~ "(.json|.lock|.git)">
+Order allow,deny
+Deny from all
+</Files>
+
+# Deny accessing below directories
+<Directory ~ "(.git|.github|runtime|vendor|tests)">
+Order allow,deny
+Deny from all
+</Directory>
+
+# Deny accessing dot files
+RewriteRule (^\.|/\.) - [F] 
