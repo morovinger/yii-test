@@ -86,6 +86,9 @@ docker-compose exec php php yii migrate
 # Create a user (example)
 docker-compose exec php php yii create-user admin admin@example.com password123
 ```
+# Create a Folder 
+docker-compose exec php chmod -R 777 /app/runtime /app/web/assets
+```
 
 ## Customization
 
