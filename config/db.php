@@ -2,8 +2,10 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'sqlite:@app/database/database.sqlite',
-    'charset' => 'utf8',
+    'dsn' => 'mysql:host=127.0.0.1;port=3306;dbname=yii2_basic',
+    'username' => 'root',
+    'password' => '',
+    'charset' => 'utf8mb4',
 
     // Schema cache options (for production environment)
     //'enableSchemaCache' => true,
