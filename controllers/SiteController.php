@@ -9,6 +9,7 @@ use yii\web\Response;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use app\models\ContactForm;
+use app\models\SignupForm;
 
 class SiteController extends Controller
 {
@@ -20,8 +21,13 @@ class SiteController extends Controller
         return [
             'access' => [
                 'class' => AccessControl::class,
-                'only' => ['logout'],
+                'only' => ['logout', 'signup'],
                 'rules' => [
+                    [
+                        'actions' => ['signup'],
+                        'allow' => true,
+                        'roles' => ['?'],
+                    ],
                     [
                         'actions' => ['logout'],
                         'allow' => true,
@@ -96,6 +102,27 @@ class SiteController extends Controller
         Yii::$app->user->logout();
 
         return $this->goHome();
+    }
+
+    /**
+     * Signs up a new user.
+     *
+     * @return Response|string
+     */
+    public function actionSignup()
+    {
+        $model = new SignupForm();
+        
+        if ($model->load(Yii::$app->request->post()) && $user = $model->signup()) {
+            if (Yii::$app->getUser()->login($user)) {
+                Yii::$app->session->setFlash('success', 'Registration successful. Welcome to our site!');
+                return $this->goHome();
+            }
+        }
+
+        return $this->render('signup', [
+            'model' => $model,
+        ]);
     }
 
     /**
